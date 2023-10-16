@@ -5,11 +5,11 @@ import "./styles.css"
 
 function Game() {
     const [history, setHistory] = useState([Array(9).fill(null)]);
-    const [xIsNext, setXIsNext] = useState(true)
     const [moves, setMoves] = useState([null])
     const [isAsc, setIsAsc] = useState(true)
     const [currentMove, setCurrentMove] = useState(0)
     const currentSquares = history[currentMove];
+    const xIsNext = (currentMove % 2 === 0)
 
 
     const handlePlay = (newMove, nextSquares) => {
@@ -18,7 +18,6 @@ function Game() {
         setCurrentMove(nextHistory.length - 1);
         const nextMoves = [...moves.slice(0, currentMove + 1), newMove]
         setMoves(nextMoves);
-        setXIsNext(!xIsNext)
     }
 
     let moves_copy = moves.slice();
@@ -53,7 +52,6 @@ function Game() {
 
     function jumpTo(nextMove) {
         setCurrentMove(nextMove);
-        setXIsNext(nextMove % 2 === 0);
     }
 
     const handleSortBtnClick = () => {
@@ -68,14 +66,14 @@ function Game() {
             </div>
             <div style={{ paddingInline: '30px' }}>
                 <div className="height-50">
-                    <Form style={{display: 'flex', alignItems:'center', marginLeft:'25px'}}>
+                    <Form style={{ display: 'flex', alignItems: 'center', marginLeft: '25px' }}>
                         <Form.Check // prettier-ignore
                             type="switch"
                             id="custom-switch"
                             onClick={handleSortBtnClick}
                             defaultChecked={isAsc ? 'checked' : 'unchecked'}
                         />
-                        <div style={{fontWeight:'500'}}>Ascending</div>
+                        <div style={{ fontWeight: '500' }}>Ascending</div>
                     </Form>
                 </div>
 
